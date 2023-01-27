@@ -15,23 +15,26 @@ namespace LiteNinja.MusicForge
   /// </summary>
   public class RandomTracksPlayer : MonoBehaviour
   {
-    [Header("Master")] [SerializeField] [Range(0f, 1f)]
-    private float _masterVolume = 0.8f;
+    [Header("Master")] 
+    [SerializeField] [Range(0f, 1f)] private float _masterVolume = 0.8f;
 
     [SerializeField] private float _masterFadeDuration = 1f;
     [SerializeField] private bool _playOnStart = true;
 
-    [Header("Playing Tracks")] [SerializeField]
-    private int _avgPlayingTracks = 3;
-
+    [Header("Playing Tracks")] 
+    [SerializeField] private int _avgPlayingTracks = 3;
     [SerializeField] private int _playingTracksVariance = 1;
 
-    [Header("Fade Time")] [SerializeField] private float _fadeInTime = 1f;
+    [Header("Fade Time")] 
+    [SerializeField] private float _fadeInTime = 1f;
     [SerializeField] private float _fadeOutTime = 1f;
+    
+    [Header("Pitch Randomization")]
+    [SerializeField] private float _averagePitch = 1f;
+    [SerializeField] private float _pitchVariance = 0.1f;
 
-    [Header("Time before next track operation")] [SerializeField]
-    private float _averageTimeBetweenOperations = 5f;
-
+    [Header("Time before next track operation")] 
+    [SerializeField] private float _averageTimeBetweenOperations = 5f;
     [SerializeField] private float _timeBetweenOperationsVariance = 2f;
 
     [Header("Audio Clips")] [SerializeField]
@@ -86,6 +89,7 @@ namespace LiteNinja.MusicForge
       {
         audioSource.volume = 0f;
         audioSource.Play();
+        audioSource.pitch = _averagePitch + Random.Range(-_pitchVariance, _pitchVariance);
         StartCoroutine(FadeIn(audioSource, _masterFadeDuration));
       }
 
@@ -197,6 +201,7 @@ namespace LiteNinja.MusicForge
         _idleAudioSources.RemoveAt(0);
         _playingAudioSources.Add(audioSource);
         audioSource.volume = 0f;
+        audioSource.pitch = _averagePitch + Random.Range(-_pitchVariance, _pitchVariance);
         audioSource.Play();
         StartCoroutine(FadeIn(audioSource, _fadeInTime));
       }
