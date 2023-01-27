@@ -1,0 +1,23 @@
+{
+  "name": "com.liteninja.musicforge",
+  "version": "0.1.0",
+  "displayName": "LiteNinja Music Forge",
+  "description": "A tool allows to create music at runtime or in the editor and save it",
+  "unity": "2021.1",
+  "documentationUrl": "https://github.com/sponticelli/LiteNinja-MusicForge/blob/main/README.md",
+  "changelogUrl": "https://github.com/sponticelli/LiteNinja-MusicForge/blob/main/changelog.md",
+  "licensesUrl": "https://github.com/sponticelli/LiteNinja-MusicForge/blob/main/LICENSE",
+  "dependencies": {
+  },
+  "keywords": [
+    "utility",
+    "Muric",
+    "procedural generation",
+    "utils"
+  ],
+  "author": {
+    "name": "Sandro Ponticelli",
+    "email": "sandro.ponticelli@gmail.com",
+    "url": "https://github.com/sponticelli"
+  }
+}
