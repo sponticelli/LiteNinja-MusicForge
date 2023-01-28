@@ -3,6 +3,11 @@ using UnityEngine;
 
 namespace LiteNinja.MusicForge.Editor
 {
+  /// <summary>
+  /// EditorAudioUtils is a static class that provides methods for playing and stopping audio clips in the Unity editor.
+  /// It also includes methods for getting the current position of a playing audio clip in samples, and for destroying a
+  /// preview audio source and its associated game object.
+  /// </summary>
   public static class EditorAudioUtils
   {
     private static AudioSource _previewAudioSource;
@@ -10,6 +15,9 @@ namespace LiteNinja.MusicForge.Editor
     /// <summary>
     /// Play an audio clip from the editor by creating a temporary game object with an audio source on it.
     /// </summary>
+    /// <param name="frequency">The frequency of the audio clip to be played.</param>
+    /// <param name="sampleData">The sample data of the audio clip to be played.</param>
+    /// <param name="noAudioDataMessage">A message to display if there is no audio data to play.</param>
     public static void PlayAudioClip(int frequency, float[] sampleData, string noAudioDataMessage)
     {
       if (sampleData.Length == 0)
@@ -52,7 +60,7 @@ namespace LiteNinja.MusicForge.Editor
     }
     
     /// <summary>
-    /// Check if the audio source needs destroying.
+    /// Check if the audio source needs to be destroyed.
     /// </summary>
     private static void OnUpdate()
     {
