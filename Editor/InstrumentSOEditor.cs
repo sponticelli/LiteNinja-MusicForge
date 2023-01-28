@@ -86,9 +86,10 @@ namespace LiteNinja.MusicForge.Editor
 
     private void DrawWaveform()
     {
-      EditorGUILayout.PropertyField(_waveformDataProperty); 
+      EditorGUILayout.HelpBox("Waveform data is used to generate the sound of the instrument.", MessageType.Info);
+      EditorGUILayout.PropertyField(_waveformDataProperty);
       DrawWaveformTexture();
-      
+      EditorGUILayout.Space();
     }
 
     private void DrawWaveformTexture()

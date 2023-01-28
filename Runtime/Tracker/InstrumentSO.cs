@@ -292,20 +292,27 @@ namespace LiteNinja.MusicForge
 
 
     [Serializable]
-    public class WaveformData : IEquatable<WaveformData>
+    public class WaveformData 
     {
+      [Tooltip("Choose a single waveform or blend two waveforms to create unique instrument sounds. Blending options include waveform shape, offsets, and blend amount.")]
       [SerializeField] private WaveformsCount _numberOfWaveforms = WaveformsCount.One;
+      [Tooltip("Adjust the blend ratio between the first and second waveforms to shape the final sound.")]
       [SerializeField][Range(0f, 1f)] private float _blendAmount = 0.5f;
 
       [Header("Waveform 1")] 
+      [Tooltip("Choose a waveform for your instrument. Experiment with different options for unique sounds. Preview in graph.")]
       [SerializeField] private Waveform _waveform1 = Waveform.Square;
+      [Tooltip("Adjust waveform offset to shape blended sound when using multiple waveforms.")]
       [SerializeField][Range(0f, 1f)] private float _waveform1Offset;
 
       [Header("Waveform 2")] 
+      [Tooltip("Choose a waveform for your instrument. Experiment with different options for unique sounds. Preview in graph.")]
       [SerializeField] private Waveform _waveform2 = Waveform.Square;
+      [Tooltip("Adjust waveform offset to shape blended sound when using multiple waveforms.")]
       [SerializeField][Range(0f, 1f)] private float _waveform2Offset;
 
       [Header("Noise")] 
+      [Tooltip("Noise simulates static background sound, like an old TV. It can be used to create drumbeats, and at 100% it sounds like a snare drum. Use it for percussion sounds, but set to 0% for instruments that play different pitches.")]
       [SerializeField][Range(0f, 1f)] private float _noise;
 
       public WaveformsCount NumberOfWaveforms => _numberOfWaveforms;
@@ -324,44 +331,7 @@ namespace LiteNinja.MusicForge
         One,
         Two
       };
-
-      public WaveformData Clone()
-      {
-        return new WaveformData
-        {
-          _numberOfWaveforms = _numberOfWaveforms,
-          _blendAmount = _blendAmount,
-          _waveform1 = _waveform1,
-          _waveform1Offset = _waveform1Offset,
-          _waveform2 = _waveform2,
-          _waveform2Offset = _waveform2Offset,
-          _noise = _noise
-        };
-      }
-
-
-      public bool Equals(WaveformData other)
-      {
-        if (ReferenceEquals(null, other)) return false;
-        if (ReferenceEquals(this, other)) return true;
-        return _numberOfWaveforms == other._numberOfWaveforms && _blendAmount.Equals(other._blendAmount) &&
-               _waveform1 == other._waveform1 && _waveform1Offset.Equals(other._waveform1Offset) &&
-               _waveform2 == other._waveform2 && _waveform2Offset.Equals(other._waveform2Offset) &&
-               _noise.Equals(other._noise);
-      }
-
-      public override bool Equals(object obj)
-      {
-        if (ReferenceEquals(null, obj)) return false;
-        if (ReferenceEquals(this, obj)) return true;
-        return obj.GetType() == GetType() && Equals((WaveformData)obj);
-      }
-
-      public override int GetHashCode()
-      {
-        return HashCode.Combine((int)_numberOfWaveforms, _blendAmount, (int)_waveform1, _waveform1Offset,
-          (int)_waveform2, _waveform2Offset, _noise);
-      }
+      
     }
 
     [Serializable]
