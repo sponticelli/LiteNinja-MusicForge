@@ -10,3 +10,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.1.0] - 2023-01-27
 ### Added
 - RandomTracksPlayer to play random tracks from a list of tracks
+- Instrument class to generate notes for a given instrument
