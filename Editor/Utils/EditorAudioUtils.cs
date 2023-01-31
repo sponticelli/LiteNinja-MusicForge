@@ -82,10 +82,10 @@ namespace LiteNinja.MusicForge.Editor
     private static void DestroyPreviewAudio()
     {
       if (_previewAudioSource == null) return;
-      GameObject.DestroyImmediate(_previewAudioSource.clip);
+      Object.DestroyImmediate(_previewAudioSource.clip);
       var previewAudioSourceGameObject = _previewAudioSource.gameObject;
-      GameObject.DestroyImmediate(_previewAudioSource);
-      GameObject.DestroyImmediate(previewAudioSourceGameObject);
+      Object.DestroyImmediate(_previewAudioSource);
+      Object.DestroyImmediate(previewAudioSourceGameObject);
       _previewAudioSource = null;
     }
     
