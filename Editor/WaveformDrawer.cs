@@ -10,6 +10,9 @@ namespace LiteNinja.MusicForge.Editor
     private const int TextureHeight = 64;
     private Texture2D _waveformTexture;
 
+    private Waveform _waveform;
+    private bool _changed;
+
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
       if (_waveformTexture == null)
@@ -18,6 +21,12 @@ namespace LiteNinja.MusicForge.Editor
         {
           filterMode = FilterMode.Point
         };
+      }
+
+      if (_waveform == null)
+      {
+        _waveform = new Waveform();
+        _changed = true;
       }
 
       EditorGUI.BeginProperty(position, label, property);
@@ -29,7 +38,7 @@ namespace LiteNinja.MusicForge.Editor
       var offsetRect = new Rect(position.x, position.y + EditorGUIUtility.singleLineHeight, position.width,
         EditorGUIUtility.singleLineHeight);
       var noiseAmountRect = new Rect(position.x,
-        position.y + 2*(EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing),
+        position.y + 2 * (EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing),
         position.width, EditorGUIUtility.singleLineHeight);
       var waveformTextureRect = new Rect(position.x,
         position.y + 3 * (EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing),
@@ -39,31 +48,35 @@ namespace LiteNinja.MusicForge.Editor
       var waveformNames = System.Enum.GetNames(typeof(WaveformType));
       waveformTypeProperty.intValue =
         EditorGUI.Popup(waveformTypeRect, label.text, waveformTypeProperty.intValue, waveformNames);
-      offsetProperty.floatValue = 
+      offsetProperty.floatValue =
         EditorGUI.Slider(offsetRect, "Offset", offsetProperty.floatValue, 0f, 1f);
       noiseAmountProperty.floatValue =
         EditorGUI.Slider(noiseAmountRect, "Noise", noiseAmountProperty.floatValue, 0f, 1f);
 
 
-      var waveform =  new Waveform()
+      if (_waveform.Type != (WaveformType)waveformTypeProperty.intValue ||
+          _waveform.Offset != offsetProperty.floatValue ||
+          _waveform.Noise != noiseAmountProperty.floatValue)
       {
-        Type = (WaveformType)waveformTypeProperty.intValue,
-        Noise = noiseAmountProperty.floatValue,
-        Offset = offsetProperty.floatValue
-      };
-      EditorTexture2DUtils.DrawWaveform(waveform, _waveformTexture, Color.green, Color.gray, Color.black);
+        _waveform.Type = (WaveformType)waveformTypeProperty.intValue;
+        _waveform.Offset = offsetProperty.floatValue;
+        _waveform.Noise = noiseAmountProperty.floatValue;
+        _changed = true;
+      }
+
+
+      if (_changed)
+        EditorTexture2DUtils.DrawWaveform(_waveform, _waveformTexture, Color.green, Color.gray, Color.black);
       EditorGUI.DrawTextureTransparent(waveformTextureRect, _waveformTexture, ScaleMode.ScaleToFit);
 
       EditorGUI.EndProperty();
+      _changed = false;
     }
 
-    
+
     public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
     {
       return 3 * (EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing) + TextureHeight;
     }
   }
 }
-
-
-
